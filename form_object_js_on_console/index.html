@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Input form</title>
+    <style>
+        form {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 400px;
+            border: 1px solid black;
+            background-color: bisque;
+        }
+    </style>
+    <script type="text/javascript">
+        function formData() {
+            var boola = document.getElementById("gender1").checked;
+            var boolb = document.getElementById("gender2").checked;
+            var boolc = document.getElementById("gender3").checked;
+            var bool1 = document.getElementById("lang1").checked;
+            var bool2 = document.getElementById("lang2").checked;
+            var bool3 = document.getElementById("lang3").checked;
+            var bool4 = document.getElementById("lang4").checked;
+            var obj = {
+
+                name: {
+                    fname: document.getElementById("fname").value,
+                    lname: document.getElementById("lname").value,
+                },
+                Gender: {
+                    gender1: boola ? document.getElementById("gender1").value : "",
+                    gender2: boolb ? document.getElementById("gender2").value : "",
+                    gender3: boolc ? document.getElementById("gender3").value : "",
+                },
+                dob: document.getElementById("dob").value,
+                blood_group: document.getElementById("bg").value,
+                email: document.getElementById("email").value,
+                phone: document.getElementById("phone").value,
+                language: {
+                    language1: bool1 ? document.getElementById("lang1").value : "",
+                    language2: bool2 ? document.getElementById("lang2").value : "",
+                    language3: bool3 ? document.getElementById("lang3").value : "",
+                    language4: bool4 ? document.getElementById("lang4").value : "",
+                },
+                address: document.getElementById("address").value,
+                password: document.getElementById("password").value,
+            }
+            alert("Thank You");
+            console.log(obj);
+        }
+    </script>
+</head>
+
+
+<body>
+
+    <form action="#" method="post">
+        <center>
+            <table>
+                <tr>
+                    <td>First Name </td>
+                    <td> </td>
+                    <td><input type="text" id="fname" placeholder="Enter first name" required/></td>
+                </tr>
+                <tr>
+                    <td>Last Name </td>
+                    <td> </td>
+                    <td><input type="text" id="lname" placeholder="Enter last Name" /></td>
+                </tr>
+                <tr>
+                    <td>Gender </td>
+                    <td> </td>
+                    <td><input type="radio" name="gen" id="gender1" value="male" checked/>Male
+                        <input type="radio" name="gen" id="gender2" value="female" />Female
+                        <input type="radio" name="gen" id="gender3" value="other" />Other
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date of Birth </td>
+                    <td> </td>
+                    <td><input type="date" id="dob" required/></td>
+                </tr>
+                <tr>
+                    <td>Blood Group </td>
+                    <td> </td>
+                    <td>
+                        <select id="bg" required>
+                            <option>--Select Blood Group--</option>
+                            <option>AB+</option>
+                            <option>AB-</option>
+                            <option>A+</option>
+                            <option>A-</option>
+                            <option>B+</option>
+                            <option>B-</option>
+                            <option>O+</option>
+                            <option>O-</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>E-Mail </td>
+                    <td> </td>
+                    <td><input type="email" id="email" placeholder="Enter E-Mail id" required/></td>
+                </tr>
+
+                <tr>
+                    <td>Mobile </td>
+                    <td> </td>
+                    <td><input type="tel" id="phone" placeholder="Enter Mobile number" maxlength="10" required/></td>
+                </tr>
+                <tr>
+                    <td>Languages Known </td>
+                    <td> </td>
+                    <td>
+                        <input type="checkbox" id="lang1" value="English">English
+                        <input type="checkbox" id="lang2" value="Hindi">Hindi
+                        <input type="checkbox" id="lang3" value="Telugu">Telugu
+                        <input type="checkbox" id="lang4" value="Other">Other
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address </td>
+                    <td> </td>
+                    <td><textarea rows="5" cols="22" id="address" placeholder="Enter Address" required></textarea></td>
+                </tr>
+                <tr>
+                    <td>Password </td>
+                    <td> </td>
+                    <td><input type="password" id="password" placeholder="Enter Password" required/></td>
+                </tr>
+            </table><br><br><br>
+        </center>
+        <center>
+            <input type="button" id="submit" value="SUBMIT" onclick=" formData() " />
+            <input type="reset" id="reset " value="RESET " />
+        </center>
+    </form>
+
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Input form</title>
+    <style>
+        form {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 400px;
+            border: 1px solid black;
+            background-color: bisque;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form action="form_data.php" method="post" id="form">
+        <center>
+            <table>
+                <tr>
+                    <td>First Name </td>
+                    <td> </td>
+                    <td><input type="text" id="fname" placeholder="Enter first name" required name="fname" /></td>
+                </tr>
+                <tr>
+                    <td>Last Name </td>
+                    <td> </td>
+                    <td><input type="text" id="lname" placeholder="Enter last Name" name="lname" /></td>
+                </tr>
+                <tr>
+                    <td>Gender </td>
+                    <td> </td>
+                    <td><input type="radio" name="gen" id="gender1" value="male" checked/>Male
+                        <input type="radio" name="gen" id="gender2" value="female" />Female
+                        <input type="radio" name="gen" id="gender3" value="other" />Other
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date of Birth </td>
+                    <td> </td>
+                    <td><input type="date" id="dob" required name="dob" /></td>
+                </tr>
+                <tr>
+                    <td>Blood Group </td>
+                    <td> </td>
+                    <td>
+                        <select id="bg" required name="blood_gp">
+                            <option>--Select Blood Group--</option>
+                            <option>AB+</option>
+                            <option>AB-</option>
+                            <option>A+</option>
+                            <option>A-</option>
+                            <option>B+</option>
+                            <option>B-</option>
+                            <option>O+</option>
+                            <option>O-</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>E-Mail </td>
+                    <td> </td>
+                    <td><input type="email" id="email" placeholder="Enter E-Mail id" required name="email" /></td>
+                </tr>
+
+                <tr>
+                    <td>Mobile </td>
+                    <td> </td>
+                    <td><input type="tel" id="phone" placeholder="Enter Mobile number" maxlength="10" required name="mob" /></td>
+                </tr>
+
+                <tr>
+                    <td>Address </td>
+                    <td> </td>
+                    <td><textarea rows="5" cols="22" id="address" placeholder="Enter Address" required name="addr"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Password </td>
+                    <td> </td>
+                    <td><input type="password" id="password" placeholder="Enter Password" required name="pass" /></td>
+                </tr>
+            </table><br><br><br>
+            <input type="submit" id="submit" value="SUBMIT" />
+            <input type="reset" id="reset " value="RESET " />
+        </center>
+    </form>
+
+</body>
+
+</html>

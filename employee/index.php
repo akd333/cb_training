@@ -1,33 +1,48 @@
 <?php
-    session_start();
-    $time = $_SERVER['REQUEST_TIME'];
+    //session_start();
+    //$time = $_SERVER['REQUEST_TIME'];
     require_once('dbconnect.php');
     //date_default_timezone_set('timezone');
+    
+    $fnameErr="";
+    $lnameErr="";
+    $emailErr="";
+    $phErr="";
     if (isset($_POST["register"])) {
-    $fname=filter_var($_POST["fname"],FILTER_SANITIZE_STRING);
-    $lname=filter_var($_POST["lname"],FILTER_SANITIZE_STRING);
-    $email=filter_var($_POST["email"],FILTER_SANITIZE_EMAIL);
-    $lname=$_POST["lname"];
-    $email=$_POST["email"];
-    $dob=$_POST["dob"];
-    $bg=$_POST["blood_gp"];
-    $gen=$_POST["gen"];
-    $ph=$_POST["phone"];
-    $addr=$_POST["address"];
-    $creation_time=date('jS F g:i A');
-    $updation_time=date('jS F g:i A');
-    $sql = "INSERT INTO emp (id,fname, lname, email,dob,blood_gp,gender,mobile,address,creation_time,last_updated)
-    VALUES ('', '$fname', '$lname','$email','$dob','$bg','$gen','$ph','$addr','$creation_time','$updation_time')";
-    try {
-        // use exec() because no results are returned
-        $conn->exec($sql);
-        //echo "You are now registered successfully";
-        header("location: emp_details.php");
+        $fname=$_POST["fname"];
+        if (!preg_match("/^[a-zA-Z ]*$/",$fname)) {
+            $fnameErr = "* Please enter a vallid first name"; 
         }
-    catch(PDOException $e)
-        {
-        echo $sql . "<br>" . $e->getMessage();
+        $lname=$_POST["lname"];
+        if (!preg_match("/^[a-zA-Z ]*$/",$lname)) {
+            $lnameErr = "* Please enter a valid last name"; 
         }
+        $email=$_POST["email"];
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "* Please enter a correct email"; 
+        }
+        $dob=$_POST["dob"];
+        $bg=$_POST["blood_gp"];
+        $gen=$_POST["gen"];
+        $ph=$_POST["phone"];
+        if (!filter_var($ph, FILTER_VALIDATE_INT)) {
+            $phErr = "* Please enter a correct number"; 
+        }
+        $addr=$_POST["address"];
+        $creation_time=date('jS F g:i A');
+        $updation_time=date('jS F g:i A');
+        $sql = "INSERT INTO emp (id,fname, lname, email,dob,blood_gp,gender,mobile,address,creation_time,last_updated)
+        VALUES ('', '$fname', '$lname','$email','$dob','$bg','$gen','$ph','$addr','$creation_time','$updation_time')";
+        try {
+            // use exec() because no results are returned
+            $conn->exec($sql);
+            //echo "You are now registered successfully";
+            header("location: emp_details.php");
+            }
+        catch(PDOException $e)
+            {
+            //echo $sql . "<br>" . $e->getMessage();
+            }
     }
 ?>
 <!DOCTYPE html>
@@ -73,18 +88,20 @@
                         <label class="label">First Name</label>
                         <div class="control">
                             <input class="input is-primary" type="text" placeholder="Please enter first name" required name="fname">
+                            <p class="has-text-danger"><?php echo $fnameErr; ?></p>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">Last Name</label>
                         <div class="control">
                             <input class="input is-primary" type="text" placeholder="Please enter last name" name="lname">
-                        </div>
+                        </div>                       
                     </div>
                     <div class="field">
                         <label class="label">Email</label>
                         <div class="control">
                             <input class="input is-primary" type="email" placeholder="Please enter email" required name="email">
+                            <p class="has-text-danger"><?php echo $emailErr; ?></p>
                         </div>
                     </div>
                     <div class="field">
@@ -98,15 +115,15 @@
                         <div class="control">
                             <div class="select is-primary">
                                 <select name="blood_gp" required>
-                                    <option>---Select BG---</option>
-                                    <option>AB+</option>
-                                    <option>AB-</option>
-                                    <option>A+</option>
-                                    <option>A-</option>
-                                    <option>B+</option>
-                                    <option>B-</option>
-                                    <option>O+</option>
-                                    <option>O-</option>
+                                    <option value="">---Select BG---</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
                                 </select>
                             </div>
                         </div>
@@ -131,6 +148,7 @@
                         <label class="label">Mobile</label>
                         <div class="control">
                             <input class="input is-primary" type="tel" placeholder="Please enter mobile number" name="phone" maxlength="10" required>
+                            <p class="has-text-danger"><?php echo $phErr; ?></p>
                         </div>
                     </div>
                     <div class="field">
@@ -145,6 +163,9 @@
                         </div>
                         <div class="control">
                             <button type="reset" class="button is-primary ">Reset</button>
+                        </div>
+                        <div class="control">
+                            <a href="emp_details.php" class="button is-primary ">View All</a>
                         </div>
                     </div>
                 </div>

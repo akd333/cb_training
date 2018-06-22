@@ -1,3 +1,31 @@
+<?php
+    require_once('dbconnect.php');
+    $id=$_GET["id"];
+    if (isset($_POST["update"])) {
+        $fname=$_POST["fname"];
+        $lname=$_POST["lname"];
+        $email=$_POST["email"];
+        $dob=$_POST["dob"];
+        $bg=$_POST["blood_gp"];
+        $gen=$_POST["gen"];
+        $ph=$_POST["phone"];
+        $addr=$_POST["address"];
+        $creation_time= "";
+        $updation_time=date('jS F g:i A');
+        try {
+            $sql = "UPDATE emp SET fname= '$fname',lname= '$lname', email= '$email', blood_gp= '$bg', gender='$gen', mobile='$ph', address= '$addr', last_updated= '$updation_time' WHERE id='$id'";
+            $stmt = $conn->prepare($sql);
+            // execute the query
+            $stmt->execute();
+            header("Location:emp_details.php");
+            }
+        catch(PDOException $e)
+            {
+            echo $sql . "<br>" . $e->getMessage();
+            }
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- Start of head section-->
@@ -17,35 +45,6 @@
         </div>
         <form method="POST">
             <?php
-            require_once('dbconnect.php');
-            if (isset($_POST["back"])) {
-                header("Location:emp_details.php");
-            }
-            $id=$_GET["id"];
-            if (isset($_POST["update"])) {
-                $fname=$_POST["fname"];
-                $lname=$_POST["lname"];
-                $email=$_POST["email"];
-                $dob=$_POST["dob"];
-                $bg=$_POST["blood_gp"];
-                $gen=$_POST["gen"];
-                $ph=$_POST["phone"];
-                $addr=$_POST["address"];
-                $creation_time= "";
-                $updation_time=date('jS F g:i A');
-                try {
-                    $sql = "UPDATE emp SET fname= '$fname',lname= '$lname', email= '$email', blood_gp= '$bg', gender='$gen', mobile='$ph', address= '$addr', last_updated= '$updation_time' WHERE id='$id'";
-                    $stmt = $conn->prepare($sql);
-                    // execute the query
-                    $stmt->execute();
-                    header("Location:emp_details.php");
-                    }
-                catch(PDOException $e)
-                    {
-                    echo $sql . "<br>" . $e->getMessage();
-                    }
-            }
-
                 $qry = $conn->prepare("SELECT * from emp WHERE id=$id;"); 
                 $qry->execute();
                 $result = $qry->fetch();
@@ -103,15 +102,15 @@
                     <div class="field">
                         <div class="control">
                             <label class="radio">
-                                <input type="radio" name="gen" value= "male" checked>
+                                <input type="radio" name="gen" <?php if (isset($gen) && $gen=="male") echo "checked";?> value= "male">
                                 Male
                             </label>
                             <label class="radio">
-                                <input type="radio" name="gen" value="female">
+                                <input type="radio" name="gen" <?php if (isset($gen) && $gen=="female") echo "checked";?> value="female">
                                 Female
                             </label>
                             <label class="radio">
-                                <input type="radio" name="gen" value="other">
+                                <input type="radio" name="gen" <?php if (isset($gen) && $gen=="other") echo "checked";?> value="other">
                                 Other
                             </label>
                         </div>
@@ -133,7 +132,7 @@
                             <button type="submit" name="update" class="button is-primary">Update</button>
                         </div>
                         <div class="control">
-                            <button class="button is-primary" name="back">Back</button>
+                            <a href="emp_details.php" class="button is-primary" name="back">Back</a>
                         </div>
                     </div>
                 </div>

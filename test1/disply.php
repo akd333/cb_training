@@ -7,36 +7,38 @@
         echo "<br>";
         $result = explode( ',', $num_list );
         asort($result);
-            echo "Numbers in ascending order is :";
+        print_r($result);
+        echo "Numbers in ascending order is :";
+        echo "<br>";
+        foreach ($result as $key => $val) {
+            echo "$key : $val";
             echo "<br>";
-            foreach ($result as $key => $val) {
-                echo "$val";
-                echo "<br>";
-            }
+        }
             
         echo "<br>";
         arsort($result);
-            echo "Numbers in descending order is :";
+        echo "Numbers in descending order is :";
+        echo "<br>";
+        foreach ($result as $key => $val) {
+            echo "$key : $val";
             echo "<br>";
-            foreach ($result as $key => $val) {
-                echo "$val";
-                echo "<br>";
-            }
+        }
     }
-    if(isset($_POST["add"])){
+    if(isset($_POST["swap"])){
         session_start();
         $num_list = $_SESSION['number'];
         $result = explode( ',', $num_list );
-        $add_num = $_POST['addnumber'];
-        $res = explode( ',', $add_num );
-        $merge_arr = array_merge($result,$res);
-        asort($merge_arr);
-        echo "Total numbers in ascending order is :";
+        asort($result);
         echo "<br>";
-        foreach ($merge_arr as $key => $val) {
-            echo "$val";
+        $temp = $result[$_POST['index1']];
+        $result[$_POST['index1']] = $result[$_POST['index2']];
+        $result[$_POST['index2']] = $temp;
+        Echo "The swapped result is :";
+        Echo "<br>";
+        foreach ($result as $key => $val) {
+            echo "$key : $val";
             echo "<br>";
-        }
+       }
     }
 ?>
 <!DOCTYPE html>
@@ -54,14 +56,17 @@
             <div class="columns is-centered ">
                 <div class="column is-8">
                     <div class="field">
-                        <label class="label">Add numbers separated by comma(,) only</label>
+                        <label class="label">Enter two existing indices to swap </label>
                         <div class="control">
-                            <input class="input is-primary" type="text" placeholder="Enter number" name="addnumber" required>
+                            <input class="input is-primary" type="number" placeholder="Enter index" name="index1" required>
+                        </div>
+                        <div class="control">
+                            <input class="input is-primary" type="number" placeholder="Enter index" name="index2" required>
                         </div>
                     </div>
                     <div class="field is-grouped is-grouped-centered">
                         <div class="control">
-                            <button type="submit" name="add" class="button is-primary">Add</button>
+                            <button type="submit" name="swap" class="button is-primary">Swap</button>
                         </div>
                     </div>
                 </div>
